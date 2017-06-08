@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 public class 카드바꾸기 {
 
 	/**
-	 * @param args
+	 * @param args 
 	 */
 	static int N, M, Answer, cnt, dcnt;
 	static int[] C, tC;
@@ -26,117 +26,89 @@ public class 카드바꾸기 {
 			
 			for (int i = 0; i < N; i++) {
 				C[i] = sc.nextInt();
+				tC[i] = C[i];
 			}
 			for (int i = 0; i < N; i++) {
 				D[i] = sc.nextInt();
+				tD[i] = D[i];
 			}
 
 			////////////////////////////////////////////
 			
-			//Arrays.sort(C);
-			
-			for (int i = 0; i < C.length-1; i++) {
-				int min = i;
-				for (int j = i+1; j < C.length; j++) {
-					if(C[j] < C[min]) {
-						min = j;
-					}
-				}
-				int t = C[i];
-				C[i] = C[min];
-				C[min] = t;
-			}
-			
-//			for (int i = 0; i < C.length; i++) {
-//				System.out.print(C[i]);
-//			}
-//			System.out.println();
-//			for (int i = 0; i < C.length / 2; i++) {
-//				int t = C[i];
-//				C[i] = C[C.length-1-i];
-//				C[C.length-1-i] = t;
-//			}
-//			for (int i = 0; i < C.length; i++) {
-//				System.out.print(C[i]);
-//			}
-			
-//			System.out.println();
-			
-			for (int i = 0; i < D.length-1; i++) {
-				int min = i;
-				for (int j = i+1; j < D.length; j++) {
-					if(D[j] < D[min]) {
-						min = j;
-					}
-				}
-				int t = D[i];
-				D[i] = D[min];
-				D[min] = t;
-			}
-			
-//			for (int i = 0; i < D.length; i++) {
-//				System.out.print(D[i]);
-//			}
 //			System.out.println();
 //			for (int i = 0; i < D.length / 2; i++) {
 //				int t = D[i];
 //				D[i] = D[D.length-1-i];
 //				D[D.length-1-i] = t;
 //			}
-//			for (int i = 0; i < D.length; i++) {
+			
+			
+			sort(C);
+			sort(D);
+			
+//			for (int i = 0; i < N; i++) {
+//				System.out.print(C[i]);
+//			}
+//			System.out.println();
+//			for (int i = 0; i < N; i++) {
 //				System.out.print(D[i]);
 //			}
+//			System.out.println();
 			
 
-//			for (int i = 0; i < C.length; i++) {
-//					if(C[i] == D[i]) {
-//						tC[i] = C[i];
-//					}
-//			}
-//			
-//			for (int i = 0; i < tC.length; i++) {
-//				System.out.print(tC[i]);
-//			}
-			
-//			System.out.println();
-//			for (int i = 0; i < D.length; i++) {
-//				System.out.print(tD[i]);
-//			}
-//			System.out.println();
-			
-			
-			
 			cnt = 0;
-			swap(C, D, 0, 0, 0);
-			Answer = cnt;
+			Answer = 0;
+			
+			func(0);
 
 			System.out.println("#" + (tc+1) + " " + Answer);
 			////////////////////////////////////////////			
 		}
 	}
-    public static void swap(int[] src, int[] dst, int a, int b, int len) {
+
+	public static void func(int x) {
+		// TODO Auto-generated method stub
+		if(x == N) {
+			String s1 = Arrays.toString(C);
+			String s2 = Arrays.toString(D);
+//			System.out.println(s1);
+//			System.out.println(s2);
+			if(s1.compareTo(s2) != 0) {
+				//System.out.println(s1.compareTo(s2));
+				Answer = -1;
+				return;
+			}
+			Answer = cnt;
+			return;
+		}
+		if(C[x] != D[x]) {
+			swap(C, D, x, x);
+			sort(C);
+			sort(D);
+		}
+		func(x+1);
+	}
+
+	public static void sort(int[] arr) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < N - 1; i++) {
+			int min = i;
+			for (int j = i + 1; j < N; j++) {
+				if (arr[j] > arr[min]) {
+					min = j;
+				}
+			}
+			int t = arr[i];
+			arr[i] = arr[min];
+			arr[min] = t;
+		}
+	}
+
+	public static void swap(int[] src, int[] dst, int a, int b) {
+		// TODO Auto-generated method stub
+		cnt++;
 		int t = src[a];
 		src[a] = dst[b];
 		dst[b] = t;
-		
-		Arrays.sort(src);
-		Arrays.sort(dst);
-		
-    	if(len == N-1 ) {
-    		return;
-    	}
-		for (int i = len; i < src.length; i++) {
-			String s = Arrays.toString(src);
-			String s2 = Arrays.toString(dst);
-			// System.out.println(s + " : " + s2);
-			if (s.equals(s2)) {
-				if (i + 1 < N - 1) {
-					// System.out.println(s + " : " + s2);
-					cnt++;
-				}
-				break;
-			}
-			swap(C, D, a + 1, b + 1, i + 1);
-		}
-    }
+	}
 }

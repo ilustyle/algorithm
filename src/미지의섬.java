@@ -28,9 +28,9 @@ public class 미지의섬 {
 			}
 			
 			// under here
-			map = new int[X*2][X*2];
-			visited = new int[X*2];
-			adj = new ArrayList[X*2];
+			map = new int[501][501];
+			visited = new int[501];
+			adj = new ArrayList[501];
 			for (int i = 0; i < adj.length; i++) {
 				adj[i] = new ArrayList<>();
 			}
